@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 
 const app = express();
-const PORT = 2800;
+const PORT = process.env.PORT || 4800;
 
 // Ways to accept the data from the frontend side
 app.use(express.json());
@@ -22,11 +25,9 @@ app.get("/teas", (req, res) => {
   res.status(200).send(teaData);
 });
 
-
 // Get a tea with ID
 app.get("/teas/:id", (req, res) => {
-
-  const tea = teaData.find(t => t.id === parseInt(req.params.id));
+  const tea = teaData.find((t) => t.id === parseInt(req.params.id));
 
   if (!tea) {
     return res.status(404).send("Tea not found");
@@ -34,8 +35,6 @@ app.get("/teas/:id", (req, res) => {
 
   res.status(200).send(tea);
 });
-
-
 
 // Update tea
 app.put("/teas/:id", (req, res) => {
